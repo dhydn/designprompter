@@ -1,54 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;1,300&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
   font-family: 'Crimson Pro', serif;
-  font-weight: 300;
-  font-style: italic;
 }
 
-body {
+html, body {
   margin: 0;
-  min-height: 100vh;
-  background-color: #f5f5f5;
+  padding: 0;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fffcf7;
+}
+
 .app-container {
-  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  position: relative;
+  align-items: center;
+}
+
+.gradient-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(300deg,#fffcf7,#e1ecf7,#fffcf7);
+  background-size: 200% 200%;
+  animation: gradient-animation 12s ease infinite;
+  z-index: 0;
+}
+
+.gradient-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.15;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .idea-button {
-  all: unset;
-  cursor: pointer;
   font-family: 'Crimson Pro', serif;
+  font-style: italic;
+  font-weight: 300;
   font-size: 1.5rem;
   padding: 0.75rem 1.5rem;
-  background-color: rgba(245, 245, 245, 0.8);
-  border: 1px solid rgba(224, 224, 224, 0.8);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1;
   backdrop-filter: blur(8px);
-  transition: all 0.2s ease;
-  z-index: 10;
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .idea-button:hover {
-  background-color: rgba(238, 238, 238, 0.9);
-  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .attribution {
-  position: absolute;
-  bottom: 1rem;
+  position: fixed;
+  bottom: 2rem;
   font-size: 0.875rem;
-  color: #666;
-  z-index: 10;
+  color: #000;
+  z-index: 1;
 }
 
 .attribution a {
@@ -60,10 +114,62 @@ body {
   text-decoration: underline;
 }
 
-/* Background blob styles */
-.blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(40px);
-  z-index: 0;
+.prompt-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  max-width: 50vw;
+  width: 100%;
+}
+
+.prompt-text {
+  font-family: 'Crimson Pro', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.25rem;
+  color: #000;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.regenerate-button {
+  position: fixed;
+  bottom: 5rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.regenerate-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.regenerate-button svg {
+  width: 20px;
+  height: 20px;
+  color: #000;
 }
