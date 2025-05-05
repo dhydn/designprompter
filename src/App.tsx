@@ -108,15 +108,14 @@ const DEFAULT_PROMPTS = [
 ];
 
 const App: React.FC = () => {
-  const [prompts, setPrompts] = useState<string[]>(DEFAULT_PROMPTS);
   const [currentPrompt, setCurrentPrompt] = useState<string>('');
   const [isExpanded, setIsExpanded] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [showRegenerate, setShowRegenerate] = useState(false);
 
   const getRandomPrompt = () => {
-    const randomIndex = Math.floor(Math.random() * prompts.length);
-    return prompts[randomIndex];
+    const randomIndex = Math.floor(Math.random() * DEFAULT_PROMPTS.length);
+    return DEFAULT_PROMPTS[randomIndex];
   };
 
   const handleInitialClick = () => {
